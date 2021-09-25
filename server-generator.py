@@ -60,6 +60,15 @@ def is_admin():
 
 
 if is_admin():
-    file_write()
+    x = int(input("1 add 2 delete 3 find file 4 web"))
+    if (x == 1):
+        add_rules()
+    if (x == 2):
+        delete_rules()
+    if (x == 3):
+        file_write()
+    if(x == 4):
+        wlan_site()
+
 else:
     ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None,1)
