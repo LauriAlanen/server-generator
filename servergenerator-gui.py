@@ -26,7 +26,7 @@ def get_server_details():
         password_entry.delete(0, "end")
 
         if(world.locate_file() != None and world.locate_file()):
-            print(world.locate_file())
+            world.locate_file()
             file_found_label.place(x=0,y=355)
             create_button.config(text="Creating Server...")
             return detail_dict
