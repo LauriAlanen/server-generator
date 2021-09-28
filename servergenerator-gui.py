@@ -13,23 +13,28 @@ def get_server_details():
 
 
     elif(len(password_entry.get()) >= 5):
-        create_button.config(state="disabled")
+        create_button.config(state="disabled", text="Wait... Trying to locate the server file!")
         detail_dict = {
         "server_name" : servername_entry.get(),
         "worldname" : worldname_entry.get(),
         "password" : password_entry.get()
     }
         world = servergenerator.Actions(detail_dict["server_name"], detail_dict["worldname"], detail_dict["password"])
+
         servername_entry.delete(0, "end")
         worldname_entry.delete(0, "end")
         password_entry.delete(0, "end")
-        if(world.locate_file() != False):
+
+        if(world.locate_file() != None and world.locate_file()):
+            world.locate_file()
             file_found_label.place(x=0,y=355)
+            create_button.config(text="Creating Server...")
+            return detail_dict
+
         elif(world.locate_file() == False):
             file_not_found_label.place(x=0,y=355)
-            create_button.config(state="normal")
+            create_button.config(state="normal", text="Create Server")
 
-        return detail_dict
 
 
 
