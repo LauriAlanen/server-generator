@@ -1,7 +1,6 @@
 import os
 import webbrowser
 import requests
-import time
 
 class Actions:
 
@@ -10,7 +9,7 @@ class Actions:
         self.server_name = server_name
         self.world_name = world_name
         self.password = password
-        self.filename = "start_headless_server.bat"
+        self.filename = "Valheim dedicated server"
         
 
     def wlan_site(self):
@@ -25,23 +24,15 @@ class Actions:
 
 
     def locate_file(self):
-
-        first = time.perf_counter()
-
-        for root, dirs, files in os.walk("C:\\"):
-            if self.filename in files:
-                file_path = os.path.join(root,self.filename)
-                return file_path
-
-
-            else:
-                second = time.perf_counter()
-                difference = second - first
-
-                if(difference > 10):
-                    return False
+        drive_names = ["C","D","E","F","G","None"]
+        for location in drive_names:
+            if(location == "None"):
+                return False
+            for root, dirs, files in os.walk(f"{location}:\\Program Files (x86)"):
+                if self.filename in dirs:
+                    file_path = os.path.join(root,self.filename)
+                    return file_path + "\start_headless_server.bat"
                     
-
 
 
 
