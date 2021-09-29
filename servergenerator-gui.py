@@ -1,4 +1,5 @@
 from time import sleep
+from typing import Text
 import servergenerator
 import tkinter as tk
 from tkinter import messagebox
@@ -25,13 +26,15 @@ def get_server_details():
         worldname_entry.delete(0, "end")
         password_entry.delete(0, "end")
 
-        if(world.locate_file() != None and world.locate_file()):
-            world.locate_file()
+        is_str = isinstance(world.file_path, str)
+
+        if(is_str == True):
             file_found_label.place(x=0,y=355)
             create_button.config(text="Creating Server...")
+            world.write_to_file()
             return detail_dict
-
-        elif(world.locate_file() == False):
+        
+        elif(is_str == False):
             file_not_found_label.place(x=0,y=355)
             create_button.config(state="normal", text="Create Server")
 
