@@ -19,7 +19,6 @@ class Actions:
             requests.get("http://192.168.0.1/")
             webbrowser.open("http://192.168.0.1/")
 
-
         except requests.exceptions.ConnectionError:
             requests.get("http://192.168.1.1/")
             webbrowser.open("http://192.168.1.1/") 

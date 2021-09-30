@@ -55,14 +55,17 @@ class App(tk.Tk):
         self.create_button = tk.Button(self,text="Create Server", width=70, command = self.create_server)
         self.create_button.place(x=0, y=375)
 
-
+        # Checkbuttons
+        self.bool_var = tk.BooleanVar()
+        self.router_tick = tk.Checkbutton(text = "Open router settings?", variable = self.bool_var, onvalue = True, offvalue = False)
+        self.router_tick.place(x=10, y = 205)
 
 
 
     # Main creation function
     def create_server(self):
-        if(self.file_write_info() == True):
-            print("Placeholder")
+        if(self.file_write_info() == True, self.router_settings()):
+            print("placeholder")
 
 
     # Sub functions below
@@ -92,6 +95,12 @@ class App(tk.Tk):
                 self.file_not_found_label.place(x=0,y=355)
                 self.create_button.config(state="normal", text="Create Server")
                 return False
+
+
+    def router_settings(self):
+        if(self.bool_var.get() == True):
+            servergenerator.Actions.wlan_site(self)
+            
 
 
 
