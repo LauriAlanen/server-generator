@@ -10,13 +10,14 @@ class Actions:
         self.world_name = world_name
         self.password = password
         self.filename = "Valheim dedicated server"
-        
+        self.file_path = self.locate_file()
+
+
 
     def wlan_site(self):
         try:
             requests.get("http://192.168.0.1/")
             webbrowser.open("http://192.168.0.1/")
-
 
         except requests.exceptions.ConnectionError:
             requests.get("http://192.168.1.1/")
@@ -32,23 +33,23 @@ class Actions:
                 if self.filename in dirs:
                     file_path = os.path.join(root,self.filename)
                     return file_path + "\start_headless_server.bat"
-                    
-
-
-
-
-#def file_write(server_name, world, password):
-#    file = open(locate_file(), "r")
-#    read_file = file.read()
-#    splitted = read_file.split("\n")
-#    splitted.pop(-1)
-#    splitted.append(f"""valheim_server -nographics -batchmode -name "{server_name}" -port 2456 -world "{world}" -password "{password}" """)
-#    file.close()
-
-#    file = open(locate_file(), "w")
     
-#    for i in range (len(splitted)):
-#        file.write(splitted[i] + "\n")
-#    file.close()
-#    print("Kirjoitettu!")
-#    quit()
+    def write_to_file(self):
+        file = open(self.file_path, "r")
+        user_info = []
+        
+        for x in range(2):
+            user_info.append(file.readline())
+        for y in range(6):
+            user_info.append(file.readline())
+
+        user_info.append(f"""valheim_server -nographics -batchmode -name "{self.server_name}" -port 2456 -world "{self.world_name}" -password "{self.password}""")
+
+
+        file = open(self.file_path, "w")
+        for i in user_info:
+            file.write(i)
+        file.close()
+
+
+
