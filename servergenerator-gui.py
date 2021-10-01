@@ -64,8 +64,8 @@ class App(tk.Tk):
 
     # Main creation function
     def create_server(self):
-        if(self.file_write_info() == True, self.router_settings()):
-            print("placeholder")
+        if(self.file_write_info() == True):
+            self.router_settings()
 
 
     # Sub functions below
