@@ -1,6 +1,8 @@
 import os
 import webbrowser
 import requests
+import win32gui, win32con
+from time import sleep
 
 class Actions:
 
@@ -50,5 +52,14 @@ class Actions:
             backup_file.write(i)
         file.close()
         backup_file.close()
+
+    def start_server(self):
+        os.chdir(self.locate_file().replace("\start_headless_server.bat",""))
+        os.startfile("start_headless_server.bat")
+        sleep(0.5)
+        minimize = win32gui.GetForegroundWindow()
+        win32gui.ShowWindow(minimize , win32con.SW_MINIMIZE)
+    
+    
 
 

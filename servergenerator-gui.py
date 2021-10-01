@@ -66,10 +66,10 @@ class App(tk.Tk):
     def create_server(self):
         if(self.file_write_info() == True):
             self.router_settings()
-
+            self.world.start_server()
 
     # Sub functions below
-    def file_write_info(self):
+    def file_write_info(self):      
 
         if(len(self.password_entry.get()) < 5 or len(self.worldname_entry.get()) < 3 or len(self.servername_entry.get()) < 3 or self.servername_entry.get() in self.password_entry.get()):
             messagebox.showinfo("Field Error!", "Make sure you met the requirements on servername, worldname and password!")
@@ -77,18 +77,18 @@ class App(tk.Tk):
         elif(len(self.password_entry.get()) >= 5):
             self.create_button.config(state="disabled", text="Wait... Trying to locate the server file!")
 
-            world = servergenerator.Actions(self.servername_entry.get(), self.worldname_entry.get(), self.password_entry.get())
+            self.world = servergenerator.Actions(self.servername_entry.get(), self.worldname_entry.get(), self.password_entry.get())
 
             self.servername_entry.delete(0, "end")
             self.worldname_entry.delete(0, "end")
             self.password_entry.delete(0, "end")
 
-            is_str = isinstance(world.file_path, str)
+            is_str = isinstance(self.world.file_path, str)
 
             if(is_str == True):
                 self.file_found_label.place(x=0,y=355)
                 self.create_button.config(text="Creating Server...")
-                world.write_to_file()
+                self.world.write_to_file()
                 return True
             
             elif(is_str == False):
