@@ -32,24 +32,23 @@ class Actions:
             for root, dirs, files in os.walk(f"{location}:\\Program Files (x86)"):
                 if self.filename in dirs:
                     file_path = os.path.join(root,self.filename)
-                    return file_path + "\start_headless_server.bat"
+                    final_path = file_path + "\start_headless_server.bat"
+                    return final_path
     
     def write_to_file(self):
-        file = open(self.file_path, "r")
+        file = open(self.locate_file(), "r")
         user_info = []
         
-        for x in range(2):
+        for x in range(8):
             user_info.append(file.readline())
-        for y in range(6):
-            user_info.append(file.readline())
-
         user_info.append(f"""valheim_server -nographics -batchmode -name "{self.server_name}" -port 2456 -world "{self.world_name}" -password "{self.password}""")
-
-
-        file = open(self.file_path, "w")
+        
+        file = open(self.locate_file(), "w")
+        backup_file= open(self.locate_file().replace("\start_headless_server.bat", "\start_headless_server_backup.bat"), "w")
         for i in user_info:
             file.write(i)
+            backup_file.write(i)
         file.close()
-
+        backup_file.close()
 
 
