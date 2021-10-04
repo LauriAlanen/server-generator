@@ -31,6 +31,7 @@ class Actions:
                 return False
             for root, dirs, files in os.walk(f"{location}:\\Program Files (x86)"):
                 if self.filename in dirs:
+                    self.drive = location
                     file_path = os.path.join(root,self.filename)
                     final_path = file_path + "\start_headless_server.bat"
                     return final_path
@@ -50,5 +51,15 @@ class Actions:
             backup_file.write(i)
         file.close()
         backup_file.close()
+    
+    def start_server(self):
+        os.chdir(self.locate_file().replace("\\start_headless_server.bat", ""))
+        os.startfile("start_headless_server.bat")
+    
+
+        
+
+
+
 
 
